@@ -130,6 +130,7 @@ API GET /api/citas          -> 200 JSON
 Las capturas se almacenan en `docs/evidencias/`:
 
 - `dashboard.png`: calendario cargado desde la API con colores por estado.
+- `dashboard-redisenio.png`: version final de la agenda de recepcion.
 - Agregar antes de la entrega una captura del modal de detalle y otra del formulario si el PR requiere evidencia visual adicional.
 - La salida de Docker, API y pruebas queda documentada arriba como evidencia reproducible.
 

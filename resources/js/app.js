@@ -226,6 +226,7 @@ if (calendarElement) {
     document.querySelectorAll('.close-detail').forEach((button) =>
         button.addEventListener('click', () => detailModal.close()));
     document.getElementById('new-appointment').addEventListener('click', () => openCreateModal());
+    document.getElementById('new-appointment-secondary').addEventListener('click', () => openCreateModal());
     doctorFilter.addEventListener('change', () => calendar.refetchEvents());
     patientFilter.addEventListener('change', () => calendar.refetchEvents());
 
