@@ -39,7 +39,7 @@ Salida verificada:
 
 ```text
 NAME          IMAGE       SERVICE   STATUS                   PORTS
-citas_mysql   mysql:8.4   mysql     Up (healthy)             0.0.0.0:3307->3306/tcp
+citas_mysql   mysql:8.4   mysql     Up (healthy)             127.0.0.1:3307->3306/tcp
 Volume=citas_mysql_data Mountpoint=/var/lib/docker/volumes/citas_mysql_data/_data
 ```
 
@@ -110,7 +110,7 @@ Salida:
 
 ```text
 PASS  Tests\Feature\CitasApiTest
-Tests: 9 passed (39 assertions)
+Tests: 10 passed (43 assertions)
 ```
 
 Casos cubiertos: creacion, validacion, conflictos, cancelacion historica, reprogramacion, estados persistidos, filtros, catalogos, detalle y `404`.
@@ -143,6 +143,7 @@ Se trabajo con `develop` como referencia de integracion sincronizada. Cada featu
 | `feature/api-rest-citas` | [PR #2](https://github.com/DidhyerOrtiz/ExamenAnalisisII/pull/2) | RQF-01, RQF-06, RQF-07, RQF-08, RQNF-03, RQNF-04 |
 | `feature/validacion-conflictos-estados` | [PR #3](https://github.com/DidhyerOrtiz/ExamenAnalisisII/pull/3) | RQF-03, RQF-05, RQNF-07 |
 | `feature/fullcalendar-ui` | [PR #4](https://github.com/DidhyerOrtiz/ExamenAnalisisII/pull/4) | RQF-02, RQF-04, RQF-09, RQF-10, RQNF-06, RQNF-08 |
+| `feature/evidencia-final` | [PR #5](https://github.com/DidhyerOrtiz/ExamenAnalisisII/pull/5) | RQNF-05, RQNF-08 |
 
 Comando de evidencia:
 
@@ -150,4 +151,4 @@ Comando de evidencia:
 git log --graph --all --decorate --oneline
 ```
 
-El historial conserva commits descriptivos por feature y cuatro commits de merge generados por GitHub en `main`; no se utilizo squash para que la trazabilidad individual permanezca visible.
+El historial conserva commits descriptivos por feature y cinco commits de merge generados por GitHub en `main`; no se utilizo squash para que la trazabilidad individual permanezca visible.
