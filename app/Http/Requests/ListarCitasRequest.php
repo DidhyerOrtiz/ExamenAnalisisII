@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class ListarCitasRequest extends FormRequest
 {
@@ -17,7 +18,11 @@ class ListarCitasRequest extends FormRequest
             'doctor_id' => ['nullable', 'integer', 'exists:doctores,id'],
             'paciente_id' => ['nullable', 'integer', 'exists:pacientes,id'],
             'desde' => ['nullable', 'date'],
-            'hasta' => ['nullable', 'date', 'after:desde'],
+            'hasta' => [
+                'nullable',
+                'date',
+                Rule::when($this->filled('desde'), ['after:desde']),
+            ],
         ];
     }
 }
