@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Enums\EstadoCita;
 use App\Models\Cita;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Carbon;
@@ -26,6 +27,22 @@ class CitaRepository
             ))
             ->orderBy('fecha_hora_inicio')
             ->get();
+    }
+
+    public function existeConflicto(
+        int $doctorId,
+        Carbon $inicio,
+        Carbon $fin,
+        ?int $ignorarCitaId = null,
+    ): bool {
+        return Cita::query()
+            ->where('doctor_id', $doctorId)
+            ->where('estado', '!=', EstadoCita::Cancelada->value)
+            ->where('fecha_hora_inicio', '<', $fin)
+            ->where('fecha_hora_fin', '>', $inicio)
+            ->when($ignorarCitaId, fn ($query) => $query->whereKeyNot($ignorarCitaId))
+            ->lockForUpdate()
+            ->exists();
     }
 
     public function crear(array $datos): Cita
