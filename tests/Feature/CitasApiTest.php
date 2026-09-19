@@ -173,6 +173,20 @@ class CitasApiTest extends TestCase
             ->assertJsonPath('data.0.id', $incluida->id);
     }
 
+    public function test_permite_filtrar_solo_por_fecha_hasta(): void
+    {
+        $incluida = $this->crearCita();
+        $this->crearCita([
+            'fecha_hora_inicio' => '2026-11-01 09:00:00',
+            'fecha_hora_fin' => '2026-11-01 10:00:00',
+        ]);
+
+        $this->getJson('/api/citas?hasta=2026-10-02T00:00:00')
+            ->assertOk()
+            ->assertJsonCount(1, 'data')
+            ->assertJsonPath('data.0.id', $incluida->id);
+    }
+
     public function test_expone_catalogos_detalle_y_codigos_404(): void
     {
         $cita = $this->crearCita();
@@ -186,7 +200,9 @@ class CitasApiTest extends TestCase
         $this->getJson("/api/citas/{$cita->id}")
             ->assertOk()
             ->assertJsonPath('data.motivo', 'Consulta de prueba');
-        $this->getJson('/api/citas/99999')->assertNotFound();
+        $this->getJson('/api/citas/99999')
+            ->assertNotFound()
+            ->assertExactJson(['message' => 'Recurso no encontrado.']);
     }
 
     private function datosCita(array $cambios = []): array

@@ -26,8 +26,16 @@ return Application::configure(basePath: dirname(__DIR__))
                 return null;
             }
 
-            return response()->json([
-                'message' => $exception->getMessage() ?: 'Ocurrio un error al procesar la solicitud.',
-            ], $exception->getStatusCode());
+            $status = $exception->getStatusCode();
+            $message = match ($status) {
+                404 => 'Recurso no encontrado.',
+                405 => 'Metodo no permitido.',
+                429 => 'Demasiadas solicitudes. Intente nuevamente mas tarde.',
+                default => $status >= 500
+                    ? 'Error interno del servidor.'
+                    : 'No se pudo procesar la solicitud.',
+            };
+
+            return response()->json(['message' => $message], $status);
         });
     })->create();
