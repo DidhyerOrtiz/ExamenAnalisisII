@@ -9,96 +9,107 @@
 </head>
 <body>
     <div class="app-shell">
-        <aside class="sidebar">
-            <a class="brand" href="/" aria-label="Agenda Medica">
-                <span class="brand-mark">AM</span>
-                <span><strong>Agenda</strong><small>Centro medico</small></span>
+        <header class="app-header">
+            <a class="brand" href="/" aria-label="Ir al inicio">
+                <span class="brand-symbol" aria-hidden="true"><i></i><b></b></span>
+                <span class="brand-copy"><strong>norte</strong><small>centro medico</small></span>
             </a>
-
-            <nav class="primary-nav" aria-label="Navegacion principal">
-                <a class="nav-item active" href="#calendario">
-                    <span class="nav-icon">01</span> Calendario
-                </a>
-                <a class="nav-item" href="#resumen">
-                    <span class="nav-icon">02</span> Resumen
-                </a>
-            </nav>
-
-            <div class="sidebar-note">
-                <span class="live-dot"></span>
-                <div><strong>API conectada</strong><small>Datos en tiempo real</small></div>
+            <div class="header-context">
+                <span class="connection-state"><i></i> Sistema operativo</span>
+                <span class="header-divider" aria-hidden="true"></span>
+                <span class="user-chip"><b>DR</b><span>Recepcion</span></span>
             </div>
-        </aside>
+        </header>
 
         <main class="main-content">
-            <header class="topbar">
+            <div class="breadcrumb"><span>Recepcion</span><b>/</b><strong>Agenda</strong></div>
+
+            <section class="intro-row">
                 <div>
-                    <p class="eyebrow">Gestion clinica</p>
-                    <h1>Agenda de citas</h1>
+                    <p class="eyebrow">Agenda medica</p>
+                    <h1>La consulta, en orden.</h1>
+                    <p class="intro-copy">Organiza el dia del equipo y encuentra cada cita sin perder tiempo.</p>
                 </div>
-                <div class="topbar-actions">
+                <div class="intro-actions">
                     <span class="today-label" id="today-label"></span>
                     <button class="button button-primary" id="new-appointment" type="button">
-                        <span>+</span> Nueva cita
+                        <span class="button-plus">+</span> Nueva cita
                     </button>
                 </div>
-            </header>
+            </section>
 
             <section class="stats-grid" id="resumen" aria-label="Resumen de citas">
                 <article class="stat-card stat-total">
-                    <span class="stat-kicker">En pantalla</span>
+                    <div class="stat-top"><span class="stat-kicker">Agenda visible</span><span class="stat-mark">01</span></div>
                     <strong id="stat-total">0</strong>
-                    <small>Citas programadas</small>
+                    <small>Citas en este rango</small>
                 </article>
                 <article class="stat-card stat-pending">
-                    <span class="stat-kicker">Por gestionar</span>
+                    <div class="stat-top"><span class="stat-kicker">Pendientes</span><span class="stat-mark">02</span></div>
                     <strong id="stat-pendiente">0</strong>
-                    <small>Pendientes</small>
+                    <small>Requieren confirmacion</small>
                 </article>
                 <article class="stat-card stat-confirmed">
-                    <span class="stat-kicker">Aseguradas</span>
+                    <div class="stat-top"><span class="stat-kicker">Confirmadas</span><span class="stat-mark">03</span></div>
                     <strong id="stat-confirmada">0</strong>
-                    <small>Confirmadas</small>
+                    <small>Listas para consulta</small>
                 </article>
                 <article class="stat-card stat-completed">
-                    <span class="stat-kicker">Finalizadas</span>
+                    <div class="stat-top"><span class="stat-kicker">Atendidas</span><span class="stat-mark">04</span></div>
                     <strong id="stat-atendida">0</strong>
-                    <small>Atendidas</small>
+                    <small>Historial del rango</small>
                 </article>
             </section>
 
-            <section class="workspace" id="calendario">
-                <div class="workspace-header">
-                    <div>
-                        <p class="section-label">Planificacion</p>
-                        <h2>Calendario clinico</h2>
+            <section class="content-grid" id="calendario">
+                <div class="workspace">
+                    <div class="workspace-header">
+                        <div>
+                            <p class="section-label">Vista de agenda</p>
+                            <h2>Calendario de consultas</h2>
+                        </div>
+                        <div class="filters" aria-label="Filtros de agenda">
+                            <label>
+                                <span>Doctor</span>
+                                <select id="doctor-filter">
+                                    <option value="">Todos los doctores</option>
+                                </select>
+                            </label>
+                            <label>
+                                <span>Paciente</span>
+                                <select id="patient-filter">
+                                    <option value="">Todos los pacientes</option>
+                                </select>
+                            </label>
+                        </div>
                     </div>
-                    <div class="filters">
-                        <label>
-                            <span>Doctor</span>
-                            <select id="doctor-filter">
-                                <option value="">Todos los doctores</option>
-                            </select>
-                        </label>
-                        <label>
-                            <span>Paciente</span>
-                            <select id="patient-filter">
-                                <option value="">Todos los pacientes</option>
-                            </select>
-                        </label>
+                    <div class="calendar-hint"><span class="hint-icon">i</span> Haz clic en un espacio libre para agendar. Arrastra una cita para reprogramarla.</div>
+                    <div class="calendar-wrap">
+                        <div id="calendar" aria-label="Calendario de citas"></div>
                     </div>
                 </div>
 
-                <div class="legend" aria-label="Estados">
-                    <span><i class="dot pending"></i>Pendiente</span>
-                    <span><i class="dot confirmed"></i>Confirmada</span>
-                    <span><i class="dot cancelled"></i>Cancelada</span>
-                    <span><i class="dot completed"></i>Atendida</span>
-                </div>
-
-                <div class="calendar-wrap">
-                    <div id="calendar" aria-label="Calendario de citas"></div>
-                </div>
+                <aside class="side-panel" aria-label="Ayuda de agenda">
+                    <div class="side-panel-heading">
+                        <div>
+                            <p class="section-label">Lectura rapida</p>
+                            <h2>Como leer la agenda</h2>
+                        </div>
+                        <span class="side-index">A1</span>
+                    </div>
+                    <p class="side-copy">Cada color representa el momento actual de una cita. Selecciona un evento para consultar su ficha.</p>
+                    <div class="legend" aria-label="Estados de las citas">
+                        <span><i class="dot pending"></i><b>Pendiente</b><small>Por confirmar</small></span>
+                        <span><i class="dot confirmed"></i><b>Confirmada</b><small>Agendada</small></span>
+                        <span><i class="dot cancelled"></i><b>Cancelada</b><small>Conservada</small></span>
+                        <span><i class="dot completed"></i><b>Atendida</b><small>Finalizada</small></span>
+                    </div>
+                    <div class="side-note">
+                        <span class="note-line"></span>
+                        <p>El historial se conserva incluso cuando una cita se cancela.</p>
+                    </div>
+                    <button class="side-link" type="button" id="new-appointment-secondary">Agendar otra cita <span aria-hidden="true">&#8594;</span></button>
+                </aside>
             </section>
         </main>
     </div>
@@ -107,8 +118,9 @@
         <form id="appointment-form">
             <div class="modal-heading">
                 <div>
-                    <p class="section-label">Nuevo registro</p>
+                    <p class="section-label">Nueva consulta</p>
                     <h2>Programar cita</h2>
+                    <p class="modal-subtitle">Completa los datos para reservar un espacio.</p>
                 </div>
                 <button class="icon-button close-modal" type="button" aria-label="Cerrar">&times;</button>
             </div>
@@ -131,13 +143,12 @@
                 </label>
                 <label class="field field-full">
                     <span>Motivo de consulta</span>
-                    <textarea name="motivo" rows="4" minlength="3" maxlength="1000" required
-                        placeholder="Describa brevemente el motivo"></textarea>
+                    <textarea name="motivo" rows="4" minlength="3" maxlength="1000" required placeholder="Ej. Control general, seguimiento..."></textarea>
                 </label>
             </div>
             <p class="form-error" id="form-error" role="alert"></p>
             <div class="modal-actions">
-                <button class="button button-ghost close-modal" type="button">Cancelar</button>
+                <button class="button button-ghost close-modal" type="button">Volver</button>
                 <button class="button button-primary" type="submit" id="save-appointment">Guardar cita</button>
             </div>
         </form>
@@ -146,8 +157,8 @@
     <dialog class="modal detail-modal" id="detail-modal">
         <div class="modal-heading">
             <div>
-                <p class="section-label">Expediente de cita</p>
-                <h2>Detalle</h2>
+                <p class="section-label">Ficha de consulta</p>
+                <h2>Detalle de la cita</h2>
             </div>
             <button class="icon-button close-detail" type="button" aria-label="Cerrar">&times;</button>
         </div>
