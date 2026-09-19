@@ -1,0 +1,25 @@
+services:
+  mysql:
+    image: mysql:8.4
+    container_name: citas_mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: citas_medicas
+      MYSQL_USER: citas_user
+      MYSQL_PASSWORD: citas_password
+      MYSQL_ROOT_PASSWORD: root_password
+      TZ: America/Guatemala
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot_password"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+      start_period: 20s
+
+volumes:
+  mysql_data:
+    name: citas_mysql_data
